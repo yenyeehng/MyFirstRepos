@@ -1,0 +1,31 @@
+---
+title: "My First Markdown Document"
+output: html_document
+---
+
+This my first Markdown document. 
+
+Let's load some data.
+
+*italics* and _italics_
+**bold** and __bold__
+superscript^2^
+~~strikethrough~~
+$A=\pi*r^2$
+$$B=2\pi r$$
+* Unordered list 
+* Item 2
+    +sub-item 1
+
+1. ordered list 
+2. item 2
+    +sub-item 1
+    
+    
+Table Header | Second Header
+-------------|--------------
+Table Cell   | Cell 2 
+Cell 3       | Cell 4
+
+
+

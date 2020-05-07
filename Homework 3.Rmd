@@ -1,0 +1,50 @@
+---
+title: "Homework3_Programming"
+author: "YenYee"
+date: "12/23/2019"
+output: html_document
+---
+1. 
+(a) $P(x)=\frac{n!}{(n-x)!x!}*(p)^{2}*(q)^{n-x},x=0,...,n$
+(b) $F(x)=(\frac{\lambda^{\alpha}}{\Gamma(\alpha)})x^{\alpha-1}e^{-\lambda x,x>0}$
+(c) $F(x)=\frac{1}{\sigma\sqrt{2\pi}}e^{{-\frac{1}{2}}(\frac{x-\mu}{\sigma})^{2}}$
+2. 
+```{r,fig.width=10,fig.height=8}
+op=par(mfrow=c(2,2))
+n=10 ; x=seq(0,n)
+plot(x, dbinom(x,n,0.2),type='p',col="red",pch=17,ylim=c(0,0.4),cex=2,main="Binomial(n,p) with n = 10",xlab="x",ylab="pmf")
+points(x,dbinom(x,n,0.5),type="p",col="blue",pch=8,ylim=c(0,0.4),cex=2)
+points(x,dbinom(x,n,0.7),type="p",col="black",pch=20,ylim=c(0,0.4),cex=2)
+points(x,dbinom(x,n,0.2),type="h",col="red",lty=2,ylim=c(0,0.4))
+points(x,dbinom(x,n,0.5),type="h",col="blue",lty=10,ylim=c(0,0.4))
+points(x,dbinom(x,n,0.7),type="h",col="black",lty=1,ylim=c(0,0.4))
+legend("topright",c("p=0.7","p=0.5","p=0.2"),lty=c(1,10,2),pch=c(20,8,17),col=c("black","blue","red"))
+
+curve(dgamma(x,1,3),0,5,col="black",lty=7,ylim=c(0,3),main=title(expression(paste("Gamma(",alpha,",",lambda,") with",lambda,"= 3"))),ylab="pdf")
+curve(dgamma(x,2,3),0,5,col="red",lty=5,add=TRUE)
+curve(dgamma(x,3,3),0,5,col="blue",lty=10,add=TRUE)
+curve(dgamma(x,5,3),0,5,col="grey",lty=11,add=TRUE)
+legend("topright",c(expression(paste(alpha,"=1")),
+        expression(paste(alpha,"=2")),
+        expression(paste(alpha,"=3")),
+        expression(paste(alpha,"=5"))),lty=c(7,5,10,11),col=c("black","red","blue","grey"))
+
+curve(dnorm(x,mean=5,sd=1),col="black",xlim=c(0,20),main=title(expression(paste("N(",mu,",",sigma^{2},") with ",sigma^{2},"=1"))),ylab="pdf")
+curve(dnorm(x,mean=10,sd=1),col="red",lty=2,add=TRUE)
+curve(dnorm(x,mean=12,sd=1),col="blue",lty=10,add=TRUE)
+curve(dnorm(x,mean=14,sd=1),col="grey",lty=11,add=TRUE)
+legend("topright",c(expression(paste(mu,"= 5"),
+        paste (mu,"=10"),
+        paste (mu,"=12"),
+        paste (mu,"=14"))),lty=c(1,2,10,11),col=c("black","red","blue","grey"))
+
+curve(dnorm(x,sd=0.5),-5,5,col="black",main=title(expression(paste("N(",mu,",",sigma^{2},") with ",mu,"=0"))),ylab="pdf",lty=1)
+curve(dnorm(x,sd=1),-5,5,col="red",lty=2,add=TRUE)
+curve(dnorm(x,sd=2),-5,5,col="blue",lty=10,add=TRUE)
+curve(dnorm(x,sd=3),-5,5,col="grey",lty=11,add=TRUE)
+legend("topright",c(expression(paste(sigma,"=0.5"),
+              paste (sigma,"=1"),
+              paste (sigma,"=2"),
+              paste (sigma,"=3"))),lty=c(1,2,10,11),col=c("black","red","blue","grey"))
+
+

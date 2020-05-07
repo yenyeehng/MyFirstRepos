@@ -1,0 +1,33 @@
+---
+title: "Midterm 4&5"
+author: "YenYee"
+date: "1/10/2020"
+output: html_document
+---
+4.
+
+f<-function(target=11){
+
+Sum<-c()
+
+i<-0
+
+while(length(unique(Sum))<target){
+
+Sum<-c(Sum,sample(1:6,1)+sample(1:6,1))
+
+1<-i+1
+
+}
+
+return(i)
+
+}
+
+ans<-c()
+
+for(n in c(1:10000)){
+
+ans<-c(ans,f())
+
+}

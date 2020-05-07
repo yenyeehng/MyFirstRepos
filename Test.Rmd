@@ -1,0 +1,10 @@
+---
+title: "Test"
+author: "YenYee"
+date: "12/24/2019"
+output: html_document
+---
+```{r, fig.width = 10, fig.height = 8} 
+op=par(mfrow=c(2,2))
+n=10; p=0.2; x=seq(0,n)
+plot(x, dbinom(x,n,p), type='p',col = "red",pch = 17,lty =8,ylim = c(0, 0.4),cex=2,main="Binomial(n,p) with n = 10")
