@@ -1,0 +1,296 @@
+---
+title: "R_Review for Midterm"
+author: "Yen Yee"
+date: "07/05/2020"
+output: html_document
+---
+
+# 1.Introduction to R  
+### Basic Calculations 
+  
+* Power"^"  
+* Remainder"%%"
+  
+#### Examples:  
+```{r}
+3^4 #power
+31%%7 #remainder
+```
+### Usage of Function  
+* **mean()** #Compute Average  
+* **var()** #Compute Variance  
+
+#### Example:  
+```{r}
+c<-1:11
+mean(c)
+var(c)
+```
+### Vectors  
+* **c()**   
+* **joint()**  
+* Vector Calculation  
+
+#### Example:  
+```{r}
+c(0,7,8) #c()is used to collect things into a vector 
+x<-c(0,7,8)
+numbers<-5:20
+joint<-c(numbers,x) #join both vectors together
+joint[5] #asking for the 5th index in the vector
+joint[c(1,3,5,7)] #asking for multiple numbers
+x[-2] #select all but the second element of x
+x*3 #every element in vector x to be multiplied by 3
+x-5 #every element in the vector x to minus 5
+x^3 #every element in vector x to be in the power of 3
+```
+### Functions for Vectors  
+* **seq()**   
+* **rep()** 
+
+#### Example:  
+```{r}
+seq(1,21,by=2)
+rep(3,12) #number 3 to be repeated 12 times 
+rep(c(1,4),c(3,2)) #number 1 to be repeated 3 times;number 4 to be repeated 2 times 
+rep(c(1,4),each=3)
+rep(seq(2,20,2),rep(2,10)) #every element to be repeated two times
+```
+* **substr(x,n,m)**  
+* **paste()**  
+
+#### Example:  
+```{r}
+colors<-c("red","yellow","blue")
+more.colors<-c(colors,"green","magenta","cyan")
+substr(colors,1,2)
+paste(colors,"flowers")
+paste("several",colors,"s",sep=" ")
+paste("I like",colors,collapse=",")
+```
+**factor()**  
+```{r}
+grp<-c("cat","dog","cat","dog")
+grp<-factor(grp)
+grp
+as.integer(grp)
+levels(grp)
+levels(grp)[as.integer(grp)]
+```
+**Matrix and Arrays**  
+* **matrix()**  
+
+#### Example:  
+```{r}
+m<-matrix(1:6,nrow=2,ncol=3)
+m
+m[1,2] #first column,second row
+m[1,] #first column
+m[,1] #first row
+a<-array(1:24,c(3,4,2))
+a
+```
+* **dataframe()**  
+
+#### Example:  
+```{r}
+colors<-c("red","yellow","blue")
+numbers<-c(1,2,3)
+colors.and.numbers<-data.frame(colors,numbers,more.numbers=c(4,5,6))
+colors.and.numbers
+```
+
+# 2.Built-in functions and online help  
+q() is an example of a built-in function.There an many functions in R which are designed to do all sorts of things.The online help facility can help you to see what a particular function is supposed to do.  
+
+**How to know the name of the function?**  
+```{r}
+#?mean 
+#help(mean)
+```
+* **built-in graphic functions**  
+```{r}
+x<-c(12,15,13,20,14,16,10,8,15)
+hist(x)
+```
+### Programming Statistical Graphics 
+
+* **Bar Chart**  
+```{r}
+VADeaths
+barplot(VADeaths,beside=TRUE,legend=TRUE,ylim=c(0,90),ylab="Deaths per 1000",main="Death rates in Virginia")
+```
+
+* **Dot Chart**  
+```{r}
+dotchart(VADeaths,xlim=c(0,75),lab="Deaths per 1000",main="Death rates in Virginia")
+```
+
+* **Histograms**  
+```{r}
+x<-rnorm(100)
+hist(x)
+```
+
+* **Boxplot**
+```{r}
+boxplot(Sepal.Length~Species,data=iris,ylab="Sepal Length(cm)",main="Iris Measurements",boswex=0.5)
+```
+
+* **Scatterplots**  
+```{r}
+x<-rnorm(100)
+y<-rpois(100,30)
+plot(x,y,main="Poisson versus Normal")
+```
+
+* **QQPlots**  
+```{r}
+x<-rnorm(1000)
+y<-rnorm(1000)
+qqplot(x,y,main="x and y are the same")
+B<-rnorm(1000,mean=3,sd=2)
+qqplot(x,B,main="B is rescaled by x")
+C<-rt(1000,df=2)
+qqplot(x,C,main="C has heavier tails")
+D<-exp(rnorm(1000))
+qqplot(x,D,main="D is skewed to the right")
+```
+
+* **Adding additional information to the plots**  
+```{r}
+#Create a new dataframe 
+sex <- c("M","F","M","F","F","M","F","M") 
+length <- c(7.9,6.5,8.4,5.5,6.5,8.0,7.0,7.5) 
+width <- c(2.3,1.7,2.6,1.7,1.9,2.1,1.8,1.9) 
+indexfinger <- data.frame(sex,length,width) 
+plot(width~length,data=indexfinger) 
+#lighlight the longest male and female 
+with(indexfinger[c(3,7),],points(length,width,pch=15)) #add linear regression for males 
+abline(lm(width~length,data=indexfinger,subset=sex=="M"),lty=1) 
+#add linear regression for females 
+abline(lm(width~length,data=indexfinger,subset=sex=="F"),lty=2) 
+#add legend for two lines 
+legend("topleft",legend=c("Male","Female"),lty=1:2)
+```
+
+* **Annotate graphs outside the plot region**  
+```{r}
+par(mar=c(5,5,5,5)     +0.1) 
+plot(c(1,9),c(0,50),type="n",xlab="",ylab="") 
+text(6,40,"Plot region") 
+points(6,20) 
+text(6,20,"(6,20)",adj=c(0.5,2)) 
+mtext(paste("Margin",1:4),side=1:4,line=3) 
+mtext(paste("Line",0:4),side=1,line=0:4,,at=3,cex=0.6) 
+mtext(paste("Line",0:4),side=2,line=0:4,,at=15,cex=0.6) 
+mtext(paste("Line",0:4),side=3,line=0:4,,at=3,cex=0.6) 
+mtext(paste("Line",0:4),side=4,line=0:4,,at=15,cex=0.6)
+```
+
+### Programming with R  
+
+* **for loop**  
+```{r}
+Fibonacci <- numeric(12) 
+Fibonacci[1] <- Fibonacci[2] <-1 
+for (i in 3:12) Fibonacci[i] <- Fibonacci[i-2]+Fibonacci[i-1]
+```
+
+* **if()**
+```{r}
+corplot<-function(x,y,plotit){
+  if (plotit == TRUE)
+    plot(x,y)       
+  cor(x,y)
+}
+corplot(c(2,5,7),c(5,6,8),FALSE)
+```
+
+* **Repeat** loop and the **break** and **next** statements  
+```{r}
+x<-3 
+tolerance<-0.000001
+repeat{
+  f<-x^3+2*x^2-7   
+  if (abs(f)<tolerance) break   
+  f.prime<-3*x^2+4*x   
+  x<-x-f/f.prime
+}
+x
+```
+
+### Simulation  
+```{r}
+random.number <- numeric(50) 
+random.seed <- 27218 
+for (j in 1:50){
+  random.seed <- (171*random.seed) %% 30269
+  random.number[j] <- random.seed/30269 
+} 
+random.number
+```
+
+* **Uniform Random Variable**  
+```{r}
+set.seed(32789) #ensures that output will match others 
+runif(10,min=-3,max=-1)
+```
+
+* **Bernouli Random Variable**  
+```{r}
+set.seed(23207) 
+guesses <- runif(20) 
+correct.answers <- (guesses <0.2) 
+correct.answers
+table(correct.answers)
+```
+
+* **Binomial Random Variable**  
+```{r}
+#probability of getting four heads in six tosses of a fair coin 
+dbinom(x=4,size=6,prob=0.5)
+#cumulative probability(P(X<=4)) 
+pbinom(4,6,0.5)
+#the quantiles for the binomial distribution(89th percentile) 
+qbinom(0.89,6,0.5)
+```
+
+* **Poisson** 
+```{r}
+dpois(x=3,0.5)
+rpois(10,3.7)
+```
+
+### Computational Linear Algebra  
+```{r}
+H3 <- matrix(c(1,1/2,1/3,1/2,1/3,1/4,1/3,1/4,1/5),nrow=3) 
+H3
+1/cbind(seq(2,4),seq(2,4),seq(3,5))
+1/rbind(seq(2,4),seq(2,4),seq(3,5))
+matrix(seq(1,12),nrow=3)
+x1 <- seq(1,3) 
+x2 <- x1^2 
+X <- cbind(x1,x2) 
+X
+X[3,2]
+X[3,]
+X[,2]
+#if we want to maintain the result as a row or column vector ,use drop=FALSE 
+X[3,,drop=FALSE]
+X[,2,drop=FALSE]
+colnames(X)
+rownames(X)
+#assign names 
+rownames(X) <- c("obs1","obs2","obs3") 
+X
+```
+
+* **Matrix Properties**  
+```{r}
+dim(X)
+diag(X)
+```
+
+
+
